@@ -1,34 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+ 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Basic from './components/Basic';
+import Education from './components/Education';
+import Language from './components/Language';
+import Preference from './components/Preference';
+import Reference from './components/Reference';
+import Tech from './components/Tech';
+import Work from './components/Work';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/basic' element={<Basic/>}/>
+      <Route path='/education' element={<Education/>}/>
+      <Route path='/language' element={<Language/>}/>
+      <Route path='/preference' element={<Preference/>}/>
+      <Route path='/reference' element={<Reference/>}/>
+      <Route path='/tech' element={<Tech/>}/>
+      <Route path='/work' element={<Work/>}/>
+    </Routes>
+    </BrowserRouter>
   )
 }
 
