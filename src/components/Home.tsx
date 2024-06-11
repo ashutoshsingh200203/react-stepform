@@ -27,7 +27,7 @@ export interface IFormInput {
   state: string;
   gender: string;
   city: string;
-  phone: number;
+  phone: string;
   zipcode: number;
   sscBoard: string;
   sscYear: number;
@@ -69,6 +69,26 @@ export interface IFormInput {
   refrel3 : string ;
   refname3 : string ;
   refphone3 : number ;
+  hindi : boolean ;
+  hread : boolean ;
+  hwrite : boolean ;
+  hspeak : boolean
+  gujarati : boolean ;
+  gread : boolean ;
+  gwrite : boolean ;
+  gspeak : boolean ;
+  english : boolean ;
+  eread : boolean ;
+  espeak : boolean ;
+  ewrite : boolean ;
+  php : boolean ;
+  php_lev : string ;
+  oracle : boolean ;
+  oracle_lev : string ;
+  mysql : boolean ;
+  mysql_lev : string ;
+  laravel : boolean ;
+  laravel_lev : string ;
 }
 
 const schema1 = yup.object().shape({
@@ -82,56 +102,91 @@ const schema1 = yup.object().shape({
   // state: yup.string().required('State is required'),
   // gender: yup.string().required(),
   // city: yup.string().required('City is required'),
-  // phone: yup.number().min(10).required('Phone is required'),
+  // phone: yup.string().min(10).required('Phone is required'),
   // zipcode: yup.number().min(6).required('Zipcode is required'),
 })
 
 const schema2 = yup.object().shape({
-  // sscBoard: yup.string().required('Board is Required'),
-  // sscYear: yup.number().min(1960).max(2025).required('Year is required'),
-  // sscPer: yup.number().required('percentage is required'),
-  // hscBoard: yup.string().required('Board is Required'),
-  // hscYear: yup.number().min(1960).max(2025).required('Year is required'),
-  // hscPer: yup.number().required('percentage is required'),
-  // bacBoard: yup.string().required('Board is Required'),
-  // bacYear: yup.number().min(1960).max(2025).required('Year is required'),
-  // bacUni: yup.string().required('University is Required'),
-  // bacPer: yup.number().required('percentage is required'),
-  // masBoard: yup.string(),
-  // masYear: yup.number().min(1960).max(2025),
-  // masUni: yup.string(),
-  // masPer: yup.number()
+  sscBoard: yup.string().required('Board is Required'),
+  sscYear: yup.number().min(1960).max(2025).required('Year is required'),
+  sscPer: yup.number().required('percentage is required'),
+  hscBoard: yup.string().required('Board is Required'),
+  hscYear: yup.number().min(1960).max(2025).required('Year is required'),
+  hscPer: yup.number().required('percentage is required'),
+  bacBoard: yup.string().required('Board is Required'),
+  bacYear: yup.number().min(1960).max(2025).required('Year is required'),
+  bacUni: yup.string().required('University is Required'),
+  bacPer: yup.number().required('percentage is required'),
+  masBoard: yup.string(),
+  masYear: yup.number().min(1960).max(2025),
+  masUni: yup.string(),
+  masPer: yup.number()
 })
 
 const schema3 = yup.object().shape({
 
 })
 const schema4 = yup.object().shape({
-  
+  hindi : yup.boolean(),
+  hread : yup.boolean(),
+  hwrite : yup.boolean(),
+  hspeak : yup.boolean(),
+  english : yup.boolean(),
+  eread : yup.boolean(),
+  ewrite : yup.boolean(),
+  espeak : yup.boolean(),
+  gujarati : yup.boolean(),
+  gread : yup.boolean(),
+  gwrite : yup.boolean(),
+  gspeak : yup.boolean(),
 })
 const schema5 = yup.object().shape({
-  
+  php : yup.boolean(),
+  php_lev : yup.string(),
+  oracle : yup.boolean(),
+  oracle_lev : yup.string(),
+  mysql : yup.boolean(),
+  mysql_lev : yup.string(),
+  laravel : yup.boolean(),
+  laravel_lev : yup.string()
 })
 const schema6 = yup.object().shape({
-  refrel1 : yup.string().when(['refname1','refphone1'],{
-    is : (refphone1 : string , refname1)=> refphone1.length > 0 ,
-    then : (schema)=> schema.required('djfbsjkdnf'),
-  }),
+  refrel1 : yup.string(),
   refname1 : yup.string().when('refrel1',{
-    is : (refrel1 : string)=> refrel1.length > 0 ,
-    then : (schema)=> schema.required('djfbsjkdnf'),
+    is : (refrel1 : string , refphone1 : number)=> refphone1 || refrel1.length > 0 ,
+    then : (schema)=> schema.required('Fill all reference details'),
   }),
   refphone1 : yup.number().when('refrel1',{
     is : (refrel1 : string) => refrel1.length > 0,
-    then : (schema) =>  schema.required('aaaaa')
+    then : (schema) =>  schema.required('Fill all reference details')
+  }),
+
+  refrel2 : yup.string(),
+  refname2 : yup.string().when('refrel2',{
+    is : (refrel2 : string , refphone2 : number)=> refphone2 && refrel2.length > 0 ,
+    then : (schema)=> schema.required('Fill all reference details'),
+  }),
+  refphone2 : yup.number().when('refrel2',{
+    is : (refrel2 : string) => refrel2.length > 0,
+    then : (schema) =>  schema.required('Fill all reference details')
+  }),
+
+  refrel3 : yup.string(),
+  refname3 : yup.string().when('refrel3',{
+    is : (refrel3 : string , refphone3 : number)=> refphone3 && refrel3.length > 0 ,
+    then : (schema)=> schema.required('Fill all reference details'),
+  }),
+  refphone3 : yup.number().when('refrel3',{
+    is : (refrel3 : string) => refrel3.length > 0,
+    then : (schema) =>  schema.required('Fill all reference details')
   })
 })
 const schema7 = yup.object().shape({
-  ectc : yup.number().positive().required('Expected CTC is required'),
-  cctc : yup.number().positive().required('Current CTC is required'),
-  notice : yup.number().positive().required('If no fill 0'),
-  location : yup.string().required(),
-  department : yup.string().required()
+  // ectc : yup.number().positive().required('Expected CTC is required'),
+  // cctc : yup.number().positive(),
+  // notice : yup.number().positive().required('If no fill 0'),
+  // location : yup.string().required(),
+  // department : yup.string().required()
 })
 
 const steps = [
@@ -179,6 +234,7 @@ const Home: React.FC = () => {
     }
     else {
       console.log(data)
+      
     }
   }
 
@@ -193,7 +249,7 @@ const Home: React.FC = () => {
     }
   }
 
-  const mainContent = (step: number) => {
+  const mainContent  = (step: number) => {
     switch (step) {
       case 0:
         return <Basic control={control} errors={errors} />
@@ -202,9 +258,9 @@ const Home: React.FC = () => {
       case 2:
         return <Work control={control} errors={errors} />;
       case 3:
-        return <Language control={control} errors={errors} />;
+        return <Language control={control}/>;
       case 4:
-        return <Tech control={control} errors={errors} />;
+        return <Tech control={control} />;
       case 5:
         return <Reference control={control} errors={errors} />;
       case 6:
@@ -224,10 +280,13 @@ const Home: React.FC = () => {
           </Step>
         ))}
       </Stepper>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px' }} >
-        {mainContent(activeSteps)}
+      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px' , marginLeft: '60px' }} >
+        <>{mainContent(activeSteps)}</>
+        <Box sx={{display : 'flex' , justifyContent : 'space-around' , marginTop : 4}}>
+
         < Button disabled={activeSteps === 0} onClick={handleBack} variant="contained" >Back</Button>
-        < Button type={activeSteps === steps.length -1 ? 'submit' : 'button'} onClick={handleNext} variant="contained" >{activeSteps ===steps.length -1 ? 'Finish' : 'Next'}</Button>
+        < Button type={activeSteps === steps.length  ? 'submit' : 'button'} onClick={handleNext} variant="contained" >{activeSteps ===steps.length -1 ? 'Finish' : 'Next'}</Button>
+        </Box>
       </form>
     </Box>
   )

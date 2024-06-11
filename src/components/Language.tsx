@@ -1,39 +1,153 @@
 import { Controller, Control } from "react-hook-form"
-import {TextField} from "@mui/material"
+import { Checkbox, FormControlLabel } from "@mui/material"
 import { IFormInput } from "./Home";
 
 interface eduProps {
   control: Control<IFormInput>;
-  errors: any
 }
 
 
-const Language: React.FC<eduProps> = ({ control, errors }) => {
+const Language: React.FC<eduProps> = ({ control }) => {
+
+  const handleChange = (language: string, span: string) => {
+
+    let lang: HTMLInputElement | null = document.getElementById(language) as HTMLInputElement
+    let spanElement = document.getElementById(span)
+    if (lang != null && spanElement != null) {
+      console.log(lang.checked)
+      if (lang.checked) {
+        spanElement.style.visibility = "visible";
+      }
+      else {
+        spanElement.style.visibility = "hidden";
+      }
+    }
+
+  }
+
+
   return (
     <>
-      <Controller
-        name="sscBoard"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="sscBoard" margin='dense' error={!!errors.sscBoard} helperText={errors.sscBoard ? errors.sscBoard.message : ''} />}
-      />
+      <div>
 
-      <Controller
-        name="firstName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="First name" margin='dense' error={!!errors.firstName} helperText={errors.firstName ? errors.firstName.message : ''} />}
-      />
+        <Controller
+          name="hindi"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <FormControlLabel control={<Checkbox {...field} id="hindi" onClick={() => { handleChange('hindi', 'hindiopt') }} />} label="Hindi" />
+          )}
+        />
+        <span id="hindiopt" style={{ visibility: 'hidden' }}>
 
+          <Controller
+            name="hread"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+            )}
+          />
+          <Controller
+            name="hwrite"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+            )}
+          />
+          <Controller
+            name="hspeak"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+            )}
+          />
+        </span>
+      </div>
 
-      <Controller
-        name="firstName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="First name" margin='dense' error={!!errors.firstName} helperText={errors.firstName ? errors.firstName.message : ''} />}
-      />
+      <div>
+
+        <Controller
+          name="english"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <FormControlLabel control={<Checkbox {...field} id="english" onClick={() => { handleChange('english', 'englishopt') }} />} label="English" />
+          )}
+        />
+        <span id="englishopt" style={{ visibility: 'hidden' }}>
+
+          <Controller
+            name="eread"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+            )}
+          />
+          <Controller
+            name="espeak"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+            )}
+          />
+          <Controller
+            name="ewrite"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+            )}
+          />
+        </span>
+
+      </div>
+
+      <div>
+
+        <Controller
+          name="gujarati"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <FormControlLabel control={<Checkbox {...field} id="gujarati" onClick={() => { handleChange('gujarati', 'gujaratiopt') }} />} label="Gujarati" />
+          )}
+        />
+        <span id="gujaratiopt" style={{ visibility: 'hidden' }}>
+
+          <Controller
+            name="gread"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+            )}
+          />
+          <Controller
+            name="gspeak"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+            )}
+          />
+          <Controller
+            name="gwrite"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+            )}
+          />
+        </span>
+      </div>
     </>
   )
 }
 
-export default Language ;
+export default Language;
+
