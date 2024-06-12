@@ -3,7 +3,7 @@ import {
   TextField, FormControl, FormControlLabel, RadioGroup, FormLabel, Radio,
   InputLabel, MenuItem, Select
 } from "@mui/material"
-import { IFormInput } from "./Home";
+import { IFormInput } from "../interface";
 
 
 
@@ -81,6 +81,7 @@ const Basic: React.FC<basicProps> = ({ control, errors }) => {
         <Controller
           name="zipcode"
           control={control}
+          defaultValue=''
           render={({ field }) => <TextField {...field} label="Zipcode" margin='dense' error={!!errors.zipcode} helperText={errors.zipcode ? errors.zipcode.message : ''} />}
         />
       </div>
@@ -113,7 +114,7 @@ const Basic: React.FC<basicProps> = ({ control, errors }) => {
             name='relation'
             control={control}
             defaultValue=""
-            render={({ field }) => (<Select {...field}  >
+            render={({ field }) => (<Select {...field} error={!!errors.relation}  >
               <MenuItem value={10}>Single</MenuItem>
               <MenuItem value={20}>Married</MenuItem>
             </Select>)}>

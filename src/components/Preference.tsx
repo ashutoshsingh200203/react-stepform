@@ -1,6 +1,6 @@
 import { Controller, Control } from "react-hook-form"
 import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
-import { IFormInput } from "./Home";
+import { IFormInput } from "../interface";
 
 
 interface eduProps {
@@ -41,7 +41,7 @@ const Preference: React.FC<eduProps> = ({ control, errors }) => {
             name='location'
             control={control}
             defaultValue=""
-            render={({ field }) => (<Select {...field}  >
+            render={({ field }) => (<Select {...field} error={!!errors.location} >
               <MenuItem value={10}>Ahmedabad</MenuItem>
               <MenuItem value={20}>Rajkot</MenuItem>
               <MenuItem value={30}>Surat</MenuItem>
@@ -57,7 +57,7 @@ const Preference: React.FC<eduProps> = ({ control, errors }) => {
             name='department'
             control={control}
             defaultValue=""
-            render={({ field }) => (<Select {...field}  >
+            render={({ field }) => (<Select {...field} error={!!errors.department}  >
               <MenuItem value={10}>Development</MenuItem>
               <MenuItem value={20}>Designing</MenuItem>
               <MenuItem value={30}>Testing</MenuItem>

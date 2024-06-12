@@ -1,6 +1,6 @@
 import { Controller, Control } from "react-hook-form"
 import { Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
-import { IFormInput } from "./Home";
+import { IFormInput } from "../interface";
 
 interface eduProps {
   control: Control<IFormInput>;
