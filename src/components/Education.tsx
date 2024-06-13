@@ -57,7 +57,7 @@ const Education: React.FC<eduProps> = ({ control, errors }) => {
           name="bacBoard"
           control={control}
           defaultValue=""
-          render={({ field }) => <TextField {...field} label="Bachelor's Board" margin='dense' error={!!errors.bacBoard} helperText={errors.bacBoard ? errors.bacBoard.message : ''} />}
+          render={({ field }) => <TextField {...field} label="Bachelor's Course" margin='dense' error={!!errors.bacBoard} helperText={errors.bacBoard ? errors.bacBoard.message : ''} />}
         />
 
         <Controller
@@ -66,7 +66,6 @@ const Education: React.FC<eduProps> = ({ control, errors }) => {
           defaultValue=""
           render={({ field }) => <TextField {...field} label="Bachelor's University" margin='dense' error={!!errors.bacUni} helperText={errors.bacUni ? errors.bacUni.message : ''} />}
         />
-
 
         <Controller
           name="bacYear"
@@ -83,20 +82,18 @@ const Education: React.FC<eduProps> = ({ control, errors }) => {
       <div className="section">
 
         <Controller
+          name="masBoard"
+          control={control}
+          defaultValue=""
+          render={({ field }) => <TextField {...field} label="Masters Course" margin='dense' error={!!errors.masBoard} helperText={errors.masBoard ? errors.masBoard.message : ''} />}
+        />
+
+        <Controller
           name="masUni"
           control={control}
           defaultValue=""
           render={({ field }) => <TextField {...field} label="Masters University" margin='dense' error={!!errors.masUni} helperText={errors.masUni ? errors.masUni.message : ''} />}
         />
-
-
-        <Controller
-          name="masBoard"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <TextField {...field} label="Masters Board" margin='dense' error={!!errors.masBoard} helperText={errors.masBoard ? errors.masBoard.message : ''} />}
-        />
-
 
         <Controller
           name="masYear"

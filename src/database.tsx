@@ -45,7 +45,7 @@ export const addUser=(user:Omit<IFormInput,"id">):Promise<void>=>{
     })
 }
 
-export const getUser = (id : number) : Promise<IDBDatabase> =>{
+export const getUser = (id : number) : Promise<IFormInput> =>{
      return new Promise((resolve,reject)=>{
         const request = db.transaction(Stores.Users).objectStore(Stores.Users).get(id)
         request.onsuccess=()=>{
@@ -60,13 +60,14 @@ export const getUser = (id : number) : Promise<IDBDatabase> =>{
 }
 
 
-export const getAllUser = (id : number) : Promise<IDBDatabase[]> =>{
+export const getAllUser = () =>{
     return new Promise((resolve,reject)=>{
        const request = db.transaction(Stores.Users).objectStore(Stores.Users).getAll() ;
        request.onsuccess=()=>{
            console.log(`User get with the ID ${request.result}`);
            const updated = request.result ;
            resolve(updated)
+           console.log(updated)
        }
        request.onerror=()=>{
            reject(request.error)
@@ -74,10 +75,33 @@ export const getAllUser = (id : number) : Promise<IDBDatabase[]> =>{
     })
 }
 
-// export const updateUser = (id :number) : Promise<void> =>{
-//     return new Promise ((resolve,reject)=>{
-//         const request = db.transaction(Stores.Users).objectStore(Stores.Users)
+export const doDelete = (id : number) : Promise<void> =>{
+    return new Promise((resolve,reject)=>{
+        const request = db.transaction(Stores.Users,'readwrite').objectStore(Stores.Users).delete(id)
+
+        request.onsuccess = ()=>{
+            console.log(`User deleted with the id ${request.result}`)
+            resolve()
+        }
+        request.onerror=()=>{
+            reject(request.error)
+        }
+    })
+}
+
+export const updateUser = (user : IFormInput) : Promise<void> =>{
+    return new Promise ((resolve,reject)=>{
+        const request = db.transaction(Stores.Users,'readwrite').objectStore(Stores.Users).put(user)
+
+        request.onsuccess = () =>{
+            console.log("Updated Successfully")
+            resolve()
+        }
+
+        request.onerror = () =>{
+            reject(request.error)
+        }
         
         
-//     })
-// }
+    })
+}

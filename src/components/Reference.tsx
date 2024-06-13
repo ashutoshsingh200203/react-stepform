@@ -12,7 +12,6 @@ interface eduProps {
 const Reference: React.FC<eduProps> = ({ control, errors }) => {
 
   const { fields, append, remove } = useFieldArray({ name: 'reference', control });
-  console.log(fields.length)
 
   return (
     <>

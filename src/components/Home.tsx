@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Basic from "./Basic"
 import Education from "./Education"
 import Work from "./Work"
@@ -6,18 +6,23 @@ import Tech from "./Tech"
 import Language from "./Language"
 import Reference from "./Reference"
 import Preference from "./Preference"
-import { useForm, SubmitHandler , Resolver } from "react-hook-form"
+import { useForm, SubmitHandler, Resolver } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import {Stepper, Step, StepLabel,Button, Box} from '@mui/material';
-import { schema1, schema2,schema5, schema3, schema4, schema6, schema7 } from "../schema"
+import { Stepper, Step, StepLabel, Button, Box } from '@mui/material';
+import { schema1, schema2, schema5, schema3, schema4, schema6, schema7 } from "../schema"
 import { IFormInput } from "../interface"
-import { addUser, getUser, initDB } from "../database"
+import { addUser, getUser, initDB, updateUser } from "../database"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 
-const steps = ['Basic Details','Educational Details','Experience','Language','Technologies','References','Preferences'];
+const steps : string[] = ['Basic Details', 'Educational Details', 'Experience', 'Language', 'Technologies', 'References', 'Preferences'];
 
 const Home: React.FC = () => {
   const [activeSteps, setActiveSteps] = useState(0)
+
+  const [searchParams] = useSearchParams()
+  const id : string | null= searchParams.get('id')
+  const navigate = useNavigate()
 
   const currentSchema = () => {
     switch (activeSteps) {
@@ -41,18 +46,36 @@ const Home: React.FC = () => {
     }
   };
 
-  const { control, formState: { errors }, trigger, handleSubmit } = useForm<IFormInput>({ resolver: yupResolver(currentSchema()) as Resolver<IFormInput, any>, mode: 'onChange' })
+  const { control, formState: { errors }, trigger, reset, handleSubmit,getValues } = useForm<IFormInput>({ resolver: yupResolver(currentSchema()) as Resolver<IFormInput, any>, mode: 'onChange' })
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (activeSteps < steps.length - 1) {
-      setActiveSteps(activeSteps + 1)
-    }
-    else {
-      await initDB() ;
+
+    if(id === null)
+    {
+      await initDB();
       await addUser(data)
-      console.log(await getUser(3)) ;
-      
+      console.log(data)
+      navigate('/list')
     }
+    else{
+      console.log("Edit Mode")
+      await initDB();
+      await updateUser(data)
+      navigate('/list')
+    }
+  }
+
+  useEffect(() => {
+    if (id) {
+      handleEdit();
+    }
+  }, [])
+
+  const handleEdit = async () => {
+    await initDB()
+    console.log(id)
+    const editdata = await getUser(Number(id))
+    reset(editdata);
   }
 
   const handleBack = async () => {
@@ -60,13 +83,17 @@ const Home: React.FC = () => {
   }
 
   const handleNext = async () => {
+    if (activeSteps === 7) {
+      navigate('/list')
+    }
     const valid = await trigger();
     if (valid) {
       setActiveSteps((e) => e + 1)
+      console.log(activeSteps)
     }
   }
 
-  const mainContent  = (step: number) => {
+  const mainContent = (step: number) => {
     switch (step) {
       case 0:
         return <Basic control={control} errors={errors} />
@@ -75,9 +102,9 @@ const Home: React.FC = () => {
       case 2:
         return <Work control={control} errors={errors} />;
       case 3:
-        return <Language control={control}/>;
+        return <Language control={control} getValues={getValues} />;
       case 4:
-        return <Tech control={control} />;
+        return <Tech control={control} getValues={getValues}/>;
       case 5:
         return <Reference control={control} errors={errors} />;
       case 6:
@@ -97,16 +124,16 @@ const Home: React.FC = () => {
           </Step>
         ))}
       </Stepper>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px' , marginLeft: '60px' }} >
+      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px', marginLeft: '60px' }} >
         <>{mainContent(activeSteps)}</>
-        <Box sx={{display : 'flex' , justifyContent : 'space-around' , marginTop : 4}}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around', marginTop: 4 }}>
 
-        < Button disabled={activeSteps === 0} onClick={handleBack} variant="contained" >Back</Button>
-        < Button type={activeSteps === steps.length  ? 'submit' : 'button'} onClick={handleNext} variant="contained" >{activeSteps ===steps.length -1 ? 'Finish' : 'Next'}</Button>
+          < Button disabled={activeSteps === 0} onClick={handleBack} variant="contained" >Back</Button>
+          < Button type={activeSteps === steps.length ? 'submit' : 'button'} onClick={handleNext} variant="contained" >{activeSteps === steps.length - 1 ? 'Finish' : 'Next'}</Button>
         </Box>
       </form>
     </Box>
   )
 }
 
-export default Home ;
+export default Home;

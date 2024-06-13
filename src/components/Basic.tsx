@@ -53,14 +53,14 @@ const Basic: React.FC<basicProps> = ({ control, errors }) => {
           name="address1"
           control={control}
           defaultValue=""
-          render={({ field }) => <TextField {...field} label="address1" margin='dense' multiline error={!!errors.address1} helperText={errors.address1 ? errors.address1.message : ''} />}
+          render={({ field }) => <TextField {...field} label="Address 1" margin='dense' multiline error={!!errors.address1} helperText={errors.address1 ? errors.address1.message : ''} />}
         />
 
         <Controller
           name="address2"
           control={control}
           defaultValue=""
-          render={({ field }) => <TextField {...field} label="Address2" margin='dense' multiline error={!!errors.address2} helperText={errors.address2 ? errors.address2.message : ''} />}
+          render={({ field }) => <TextField {...field} label="Address 2" margin='dense' multiline error={!!errors.address2} helperText={errors.address2 ? errors.address2.message : ''} />}
         />
       </div>
 

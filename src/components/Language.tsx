@@ -1,13 +1,14 @@
-import { Controller, Control } from "react-hook-form"
+import { Controller, Control, UseFormGetValues } from "react-hook-form"
 import { Checkbox, FormControlLabel } from "@mui/material"
 import { IFormInput } from "../interface";
 
 interface eduProps {
   control: Control<IFormInput>;
+  getValues : UseFormGetValues<IFormInput>
 }
 
 
-const Language: React.FC<eduProps> = ({ control }) => {
+const Language: React.FC<eduProps> = ({ control , getValues }) => {
 
   const handleChange = (language: string, span: string) => {
 
@@ -35,7 +36,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="hindi" onClick={() => { handleChange('hindi', 'hindiopt') }} />} label="Hindi" />
+            <FormControlLabel control={<Checkbox {...field} id="hindi" onClick={() => { handleChange('hindi', 'hindiopt') }} checked={getValues('hindi')} />} label="Hindi" />
           )}
         />
         <span id="hindiopt" style={{ visibility: 'hidden' }}>
@@ -45,7 +46,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Read" checked={getValues('hread')} />
             )}
           />
           <Controller
@@ -53,7 +54,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak"  checked={getValues('hspeak')}/>
             )}
           />
           <Controller
@@ -61,7 +62,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" checked={getValues('hwrite')} />
             )}
           />
         </span>
@@ -74,7 +75,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="english" onClick={() => { handleChange('english', 'englishopt') }} />} label="English" />
+            <FormControlLabel control={<Checkbox {...field} id="english" onClick={() => { handleChange('english', 'englishopt') }} checked={getValues('english')} />} label="English" />
           )}
         />
         <span id="englishopt" style={{ visibility: 'hidden' }}>
@@ -84,7 +85,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Read"  checked={getValues('eread')}/>
             )}
           />
           <Controller
@@ -92,7 +93,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak" checked={getValues('espeak')} />
             )}
           />
           <Controller
@@ -100,7 +101,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" checked={getValues('ewrite')} />
             )}
           />
         </span>
@@ -114,7 +115,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="gujarati" onClick={() => { handleChange('gujarati', 'gujaratiopt') }} />} label="Gujarati" />
+            <FormControlLabel control={<Checkbox {...field} id="gujarati" onClick={() => { handleChange('gujarati', 'gujaratiopt') }} checked={getValues('gujarati')} />} label="Gujarati" />
           )}
         />
         <span id="gujaratiopt" style={{ visibility: 'hidden' }}>
@@ -124,7 +125,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Read" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Read" checked={getValues('gread')} />
             )}
           />
           <Controller
@@ -132,7 +133,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Write" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Speak" checked={getValues('gspeak')} />
             )}
           />
           <Controller
@@ -140,7 +141,7 @@ const Language: React.FC<eduProps> = ({ control }) => {
             control={control}
             defaultValue={false}
             render={({ field }) => (
-              <FormControlLabel control={<Checkbox {...field} />} label="Speak" />
+              <FormControlLabel control={<Checkbox {...field} />} label="Write" checked={getValues('gwrite')} />
             )}
           />
         </span>

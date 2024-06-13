@@ -1,13 +1,14 @@
-import { Controller, Control } from "react-hook-form"
+import { Controller, Control, UseFormGetValues } from "react-hook-form"
 import { Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import { IFormInput } from "../interface";
 
 interface eduProps {
   control: Control<IFormInput>;
+  getValues : UseFormGetValues<IFormInput>
 }
 
 
-const Tech: React.FC<eduProps> = ({ control }) => {
+const Tech: React.FC<eduProps> = ({ control , getValues }) => {
 
   const handleChange = (language: string, span: string) => {
     let lang: HTMLInputElement | null = document.getElementById(language) as HTMLInputElement
@@ -33,7 +34,7 @@ const Tech: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="php" onClick={() => { handleChange('php', 'phplev') }} />} label="PHP" />
+            <FormControlLabel control={<Checkbox {...field} id="php" onClick={() => { handleChange('php', 'phplev') }} checked={getValues('php')} />} label="PHP" />
           )}
         />
         <Controller
@@ -56,7 +57,7 @@ const Tech: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="oracle" onClick={() => { handleChange('oracle', 'oraclelev') }} />} label="Oracle" />
+            <FormControlLabel control={<Checkbox {...field} id="oracle" onClick={() => { handleChange('oracle', 'oraclelev') }} checked={getValues('oracle')} />} label="Oracle" />
           )}
         />
         <Controller
@@ -78,7 +79,7 @@ const Tech: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="mysql" onClick={() => { handleChange('mysql', 'mysqllev') }} />} label="Mysql" />
+            <FormControlLabel control={<Checkbox {...field} id="mysql" onClick={() => { handleChange('mysql', 'mysqllev') }} checked={getValues('mysql')} />} label="Mysql" />
           )}
         />
         <Controller
@@ -100,7 +101,7 @@ const Tech: React.FC<eduProps> = ({ control }) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <FormControlLabel control={<Checkbox {...field} id="laravel" onClick={() => { handleChange('laravel', 'laravellev') }} />} label="Laravel" />
+            <FormControlLabel control={<Checkbox {...field} id="laravel" onClick={() => { handleChange('laravel', 'laravellev') }} checked={getValues('laravel')} />} label="Laravel" />
           )}
         />
         <Controller
