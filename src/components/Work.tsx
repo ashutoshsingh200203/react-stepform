@@ -1,6 +1,7 @@
 import { Controller, Control, useFieldArray } from "react-hook-form"
 import { Button, TextField } from "@mui/material"
 import { IFormInput } from "../interface";
+import { format } from "date-fns";
 
 interface eduProps {
   control: Control<IFormInput>;
@@ -12,6 +13,8 @@ const Work: React.FC<eduProps> = ({ control, errors }) => {
 
   const { fields, append, remove } = useFieldArray({ name: 'experience', control });
   console.log(fields.length)
+  const maxDate = format(new Date(), 'yyyy-MM-dd')
+  console.log(maxDate)
 
   return (
     <>
@@ -38,18 +41,18 @@ const Work: React.FC<eduProps> = ({ control, errors }) => {
             render={({ field }) => <TextField {...field} label="Designation" margin='dense' error={!!errors.experience?.[i]?.desig} helperText={errors.experience?.[i]?.desig && `${errors.experience?.[i]?.desig.message}`} />}
           />
 
+          <Controller
+            name={`experience.${i}.todate`}
+            control={control}
+            render={({ field }) => <TextField {...field} label="From Date" margin='dense' type="date" InputLabelProps={{ shrink: true }} inputProps={{ max: maxDate }} />}
+          />
 
           <Controller
             name={`experience.${i}.fromdate`}
             control={control}
-            render={({ field }) => <TextField {...field} label="To Date" margin='dense' type="date" InputLabelProps={{shrink : true}} />}
+            render={({ field }) => <TextField {...field} label="To Date" margin='dense' type="date" InputLabelProps={{ shrink: true }} inputProps={{ max: maxDate }} />}
           />
 
-          <Controller
-            name={`experience.${i}.todate`}
-            control={control}
-            render={({ field }) => <TextField {...field} label="From Date" margin='dense' type="date" InputLabelProps={{shrink : true}} />}
-          />
 
         </div>
       ))}

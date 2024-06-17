@@ -6,13 +6,14 @@ import Tech from "./Tech"
 import Language from "./Language"
 import Reference from "./Reference"
 import Preference from "./Preference"
-import { useForm, SubmitHandler, Resolver } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Stepper, Step, StepLabel, Button, Box } from '@mui/material';
 import { schema1, schema2, schema5, schema3, schema4, schema6, schema7 } from "../schema"
 import { IFormInput } from "../interface"
 import { addUser, getUser, initDB, updateUser } from "../database"
 import { useNavigate, useSearchParams } from "react-router-dom"
+import Swal from 'sweetalert2'
 
 
 const steps : string[] = ['Basic Details', 'Educational Details', 'Experience', 'Language', 'Technologies', 'References', 'Preferences'];
@@ -46,23 +47,52 @@ const Home: React.FC = () => {
     }
   };
 
-  const { control, formState: { errors }, trigger, reset, handleSubmit,getValues } = useForm<IFormInput>({ resolver: yupResolver(currentSchema()) as Resolver<IFormInput, any>, mode: 'onChange' })
+  const { control, formState: { errors }, trigger, reset, handleSubmit,getValues } = useForm<IFormInput>({ resolver: yupResolver(currentSchema()), mode: 'onChange' })
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon:'question',
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Submit"
+    })
 
-    if(id === null)
+    if (result.isConfirmed) {
+     
+      if(id === null)
+      {
+        await initDB();
+        await addUser(data)
+        console.log(data)
+        navigate('/list')
+
+        await Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+      else{
+        console.log("Edit Mode")
+        await initDB();
+        await updateUser(data)
+        navigate('/list')
+
+        await Swal.fire({
+          title: "Submitted!",
+          text: "Your form has been submitted successfully.",
+          icon: "success"
+        });
+      }
+    }
+    else if (result.dismiss)
     {
-      await initDB();
-      await addUser(data)
-      console.log(data)
-      navigate('/list')
+      setActiveSteps((e) => e - 1);
     }
-    else{
-      console.log("Edit Mode")
-      await initDB();
-      await updateUser(data)
-      navigate('/list')
-    }
+   
   }
 
   useEffect(() => {
@@ -117,14 +147,14 @@ const Home: React.FC = () => {
   return (
 
     <Box sx={{ width: '70%', padding: '10px', margin: 'auto' }}>
-      <Stepper activeStep={activeSteps} alternativeLabel>
+      <Stepper activeStep={activeSteps} alternativeLabel sx={{marginTop: '20px'}}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px', marginLeft: '60px' }} >
+      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '20px', marginLeft: '60px', marginTop:'50px' }} >
         <>{mainContent(activeSteps)}</>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginTop: 4 }}>
 
