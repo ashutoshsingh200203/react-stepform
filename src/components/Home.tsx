@@ -70,8 +70,8 @@ const Home: React.FC = () => {
         navigate('/list')
 
         await Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
+          title: "Submitted",
+          text: "Your form has submitted successfully!",
           icon: "success"
         });
       }
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
 
         await Swal.fire({
           title: "Submitted!",
-          text: "Your form has been submitted successfully.",
+          text: "Your form has been updated successfully.",
           icon: "success"
         });
       }
