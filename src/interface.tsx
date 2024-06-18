@@ -5,7 +5,7 @@ export interface IFormInput {
   designation: string;
   email: string;
   address1: string;
-  address2: string;
+  address2?: string;
   relation: string;
   state: string;
   gender: string;
@@ -22,16 +22,16 @@ export interface IFormInput {
   bacYear: string;
   bacUni: string;
   bacPer: number;
-  masBoard: string;
-  masYear: string;
-  masUni: string;
-  masPer: number;
+  masBoard?: string;
+  masYear?: string;
+  masUni?: string;
+  masPer?: number;
   ectc : number ;
   cctc : number ;
   notice : number ;
   location : string ;
   department : string ;
-  hindi : boolean ;
+  hindi? : boolean ;
   hread : boolean ;
   hwrite : boolean ;
   hspeak : boolean

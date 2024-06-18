@@ -47,7 +47,7 @@ const Home: React.FC = () => {
     }
   };
 
-  const { control, formState: { errors }, trigger, reset, handleSubmit,getValues } = useForm<IFormInput>({ resolver: yupResolver(currentSchema()), mode: 'onChange' })
+  const { control, formState: { errors }, trigger, reset, handleSubmit,getValues } = useForm<IFormInput>({ resolver: yupResolver<IFormInput>(currentSchema()), mode: 'onChange' })
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const result = await Swal.fire({

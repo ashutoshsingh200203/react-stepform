@@ -6,7 +6,7 @@ export const schema1 = yup.object().shape({
   designation: yup.string().trim().required('Designation is required'),
   email: yup.string().trim().required('Email is required').email('Email must be valid email'),
   address1: yup.string().trim().min(3).max(100).required('Address1 is required'),
-  address2: yup.string().trim().max(100),
+  address2: yup.string().trim().max(100).nullable(),
   relation: yup.string().required('Relation is required'),
   state: yup.string().trim().required('State is required').matches(/^[a-zA-Z]+$/,'Only alphabets are allowed'),
   gender: yup.string().trim().required(),
@@ -26,10 +26,10 @@ export const schema2 = yup.object().shape({
   bacYear: yup.number().min(1960).max(2024).required('Year is required'),
   bacUni: yup.string().trim().required('University is Required').matches(/^[a-zA-Z]+$/,'Only alphabets are allowed'),
   bacPer: yup.number().required('percentage is required'),
-  masBoard: yup.string().trim(),
-  masYear: yup.number().min(1960).max(2024),
-  masUni: yup.string().trim(),
-  masPer: yup.number()
+  masBoard: yup.string().trim().nullable(),
+  masYear: yup.number().min(1960).max(2024).nullable(),
+  masUni: yup.string().trim().nullable(),
+  masPer: yup.number().nullable()
 })
 
 export const schema3 = yup.object().shape({
@@ -42,33 +42,32 @@ export const schema3 = yup.object().shape({
 })
 
 export const schema4 = yup.object().shape({
-  hindi : yup.boolean(),
-  hread : yup.boolean(),
-  hwrite : yup.boolean(),
-  hspeak : yup.boolean(),
-  english : yup.boolean(),
-  eread : yup.boolean(),
-  ewrite : yup.boolean(),
-  espeak : yup.boolean(),
-  gujarati : yup.boolean(),
-  gread : yup.boolean(),
-  gwrite : yup.boolean(),
-  gspeak : yup.boolean(),
+  hindi : yup.boolean().nullable(),
+  hread : yup.boolean().nullable(),
+  hwrite : yup.boolean().nullable(),
+  hspeak : yup.boolean().nullable(),
+  english : yup.boolean().nullable(),
+  eread : yup.boolean().nullable(),
+  ewrite : yup.boolean().nullable(),
+  espeak : yup.boolean().nullable(),
+  gujarati : yup.boolean().nullable(),
+  gread : yup.boolean().nullable(),
+  gwrite : yup.boolean().nullable(),
+  gspeak : yup.boolean().nullable(),
 }) 
 
 export const schema5 = yup.object().shape({
-  php : yup.boolean(),
-  php_lev : yup.string().trim(),
-  oracle : yup.boolean(),
-  oracle_lev : yup.string().trim(),
-  mysql : yup.boolean(),
-  mysql_lev : yup.string().trim(),
-  laravel : yup.boolean(),
-  laravel_lev : yup.string().trim()
+  php : yup.boolean().nullable(),
+  php_lev : yup.string().trim().nullable(),
+  oracle : yup.boolean().nullable(),
+  oracle_lev : yup.string().trim().nullable(),
+  mysql : yup.boolean().nullable(),
+  mysql_lev : yup.string().trim().nullable(),
+  laravel : yup.boolean().nullable(),
+  laravel_lev : yup.string().trim().nullable()
 })
 
 export const schema6 = yup.object().shape({
-
   reference : yup.array().of(
     yup.object().shape({
       relation : yup.string().trim().required('Relation is required').matches(/^[a-zA-Z]+$/,'Only alphabets are allowed'),
@@ -80,7 +79,7 @@ export const schema6 = yup.object().shape({
 
 export const schema7 = yup.object().shape({
   ectc : yup.number().positive().required('Expected CTC is required'),
-  cctc : yup.number().positive(),
+  cctc : yup.number().positive().nullable(),
   notice : yup.number().positive().required('If no fill 0'),
   location : yup.string().trim().required('Select the location'),
   department : yup.string().trim().required('Select the department')
